@@ -1,7 +1,6 @@
 import { toolDefinition } from '@tanstack/ai'
 import { z } from 'zod'
 
-import { allSpeakers, allTalks } from 'content-collections'
 
 // Tool definition for getting a speaker by slug
 export const getSpeakerBySlugToolDef = toolDefinition({
