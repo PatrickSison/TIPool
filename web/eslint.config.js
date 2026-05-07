@@ -1,7 +1,7 @@
 //  @ts-check
 
-import { tanstackConfig } from '@tanstack/eslint-config'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import { tanstackConfig } from '@tanstack/eslint-config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default [
   ...tanstackConfig,
@@ -18,5 +18,5 @@ export default [
   {
     ignores: ['eslint.config.js', 'prettier.config.js'],
   },
-  eslintPluginPrettierRecommended,
-]
+  // eslintPluginPrettierRecommended,
+];
