@@ -9,18 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as GroupsRouteImport } from './routes/groups'
 import { Route as DecksRouteImport } from './routes/decks'
 import { Route as CardsRouteImport } from './routes/cards'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as _authSignupSplatRouteImport } from './routes/__auth/signup.$'
+import { Route as _authLoginSplatRouteImport } from './routes/__auth/login.$'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GroupsRoute = GroupsRouteImport.update({
   id: '/groups',
   path: '/groups',
@@ -46,6 +42,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const _authSignupSplatRoute = _authSignupSplatRouteImport.update({
+  id: '/__auth/signup/$',
+  path: '/signup/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _authLoginSplatRoute = _authLoginSplatRouteImport.update({
+  id: '/__auth/login/$',
+  path: '/login/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +59,8 @@ export interface FileRoutesByFullPath {
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
   '/groups': typeof GroupsRoute
-  '/login': typeof LoginRoute
+  '/login/$': typeof _authLoginSplatRoute
+  '/signup/$': typeof _authSignupSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +68,8 @@ export interface FileRoutesByTo {
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
   '/groups': typeof GroupsRoute
-  '/login': typeof LoginRoute
+  '/login/$': typeof _authLoginSplatRoute
+  '/signup/$': typeof _authSignupSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,14 +78,37 @@ export interface FileRoutesById {
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
   '/groups': typeof GroupsRoute
-  '/login': typeof LoginRoute
+  '/__auth/login/$': typeof _authLoginSplatRoute
+  '/__auth/signup/$': typeof _authSignupSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/cards' | '/decks' | '/groups' | '/login'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/cards'
+    | '/decks'
+    | '/groups'
+    | '/login/$'
+    | '/signup/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/cards' | '/decks' | '/groups' | '/login'
-  id: '__root__' | '/' | '/about' | '/cards' | '/decks' | '/groups' | '/login'
+  to:
+    | '/'
+    | '/about'
+    | '/cards'
+    | '/decks'
+    | '/groups'
+    | '/login/$'
+    | '/signup/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/cards'
+    | '/decks'
+    | '/groups'
+    | '/__auth/login/$'
+    | '/__auth/signup/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -86,18 +117,12 @@ export interface RootRouteChildren {
   CardsRoute: typeof CardsRoute
   DecksRoute: typeof DecksRoute
   GroupsRoute: typeof GroupsRoute
-  LoginRoute: typeof LoginRoute
+  _authLoginSplatRoute: typeof _authLoginSplatRoute
+  _authSignupSplatRoute: typeof _authSignupSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/groups': {
       id: '/groups'
       path: '/groups'
@@ -133,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/__auth/signup/$': {
+      id: '/__auth/signup/$'
+      path: '/signup/$'
+      fullPath: '/signup/$'
+      preLoaderRoute: typeof _authSignupSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__auth/login/$': {
+      id: '/__auth/login/$'
+      path: '/login/$'
+      fullPath: '/login/$'
+      preLoaderRoute: typeof _authLoginSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -142,17 +181,19 @@ const rootRouteChildren: RootRouteChildren = {
   CardsRoute: CardsRoute,
   DecksRoute: DecksRoute,
   GroupsRoute: GroupsRoute,
-  LoginRoute: LoginRoute,
+  _authLoginSplatRoute: _authLoginSplatRoute,
+  _authSignupSplatRoute: _authSignupSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }

@@ -3,7 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
+*.env
 .nitro
 .tanstack
 .wrangler
@@ -14,3 +14,6 @@ todos.json
 
 # Local Netlify folder
 .netlify
+
+# clerk configuration (can include secrets)
+/.clerk/
