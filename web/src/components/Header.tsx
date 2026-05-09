@@ -10,10 +10,11 @@ export default function Header() {
             <Link to="/">TI Pool</Link>
           </h2>
           <ThemeToggle />
-          <Link to="/cards">Cards</Link>
-          <Link to="/decks">Decks</Link>
-          <Link to="/teams">Teams</Link>
-          <Link className="ml-auto" to="/login">Login / Sign Up</Link>
+          <Link to="/cards">Cards</Link> {/*This will get changed to Collection*/}
+          <Link to="/pools">Pools</Link> {/*Ideally this will be hidden when users are not logged in*/}
+          <Link to="/decks">Decks</Link> {/*Ideally this will be hidden when users are not logged in*/}
+          <Link className="ml-auto" to="/login">Login / Sign Up</Link> {/*This needs to have a login by default, button at the bottom for signup if not signed up*/}
+          {/*Need to add a card gallery button to view the whole card gallery*/}
         </div>
 
           {/* <details className="relative w-full sm:w-auto">

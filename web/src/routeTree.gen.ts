@@ -9,7 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GroupsRouteImport } from './routes/groups'
+import { Route as PoolsRouteImport } from './routes/pools'
 import { Route as DecksRouteImport } from './routes/decks'
 import { Route as CardsRouteImport } from './routes/cards'
 import { Route as AboutRouteImport } from './routes/about'
@@ -17,9 +17,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as _authSignupSplatRouteImport } from './routes/__auth/signup.$'
 import { Route as _authLoginSplatRouteImport } from './routes/__auth/login.$'
 
-const GroupsRoute = GroupsRouteImport.update({
-  id: '/groups',
-  path: '/groups',
+const PoolsRoute = PoolsRouteImport.update({
+  id: '/pools',
+  path: '/pools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DecksRoute = DecksRouteImport.update({
@@ -58,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
-  '/groups': typeof GroupsRoute
+  '/pools': typeof PoolsRoute
   '/login/$': typeof _authLoginSplatRoute
   '/signup/$': typeof _authSignupSplatRoute
 }
@@ -67,7 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
-  '/groups': typeof GroupsRoute
+  '/pools': typeof PoolsRoute
   '/login/$': typeof _authLoginSplatRoute
   '/signup/$': typeof _authSignupSplatRoute
 }
@@ -77,7 +77,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/cards': typeof CardsRoute
   '/decks': typeof DecksRoute
-  '/groups': typeof GroupsRoute
+  '/pools': typeof PoolsRoute
   '/__auth/login/$': typeof _authLoginSplatRoute
   '/__auth/signup/$': typeof _authSignupSplatRoute
 }
@@ -88,25 +88,18 @@ export interface FileRouteTypes {
     | '/about'
     | '/cards'
     | '/decks'
-    | '/groups'
+    | '/pools'
     | '/login/$'
     | '/signup/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/cards'
-    | '/decks'
-    | '/groups'
-    | '/login/$'
-    | '/signup/$'
+  to: '/' | '/about' | '/cards' | '/decks' | '/pools' | '/login/$' | '/signup/$'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/cards'
     | '/decks'
-    | '/groups'
+    | '/pools'
     | '/__auth/login/$'
     | '/__auth/signup/$'
   fileRoutesById: FileRoutesById
@@ -116,18 +109,18 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CardsRoute: typeof CardsRoute
   DecksRoute: typeof DecksRoute
-  GroupsRoute: typeof GroupsRoute
+  PoolsRoute: typeof PoolsRoute
   _authLoginSplatRoute: typeof _authLoginSplatRoute
   _authSignupSplatRoute: typeof _authSignupSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/groups': {
-      id: '/groups'
-      path: '/groups'
-      fullPath: '/groups'
-      preLoaderRoute: typeof GroupsRouteImport
+    '/pools': {
+      id: '/pools'
+      path: '/pools'
+      fullPath: '/pools'
+      preLoaderRoute: typeof PoolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/decks': {
@@ -180,7 +173,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CardsRoute: CardsRoute,
   DecksRoute: DecksRoute,
-  GroupsRoute: GroupsRoute,
+  PoolsRoute: PoolsRoute,
   _authLoginSplatRoute: _authLoginSplatRoute,
   _authSignupSplatRoute: _authSignupSplatRoute,
 }
