@@ -4,16 +4,17 @@ import ThemeToggle from './ThemeToggle'
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
-        <h2>
-          <Link to="/">TI Pool</Link>
-        </h2>
-
-        <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
+      <nav className="gap-x-3 gap-y-2 py-3 sm:py-4">
+        <div className="flex items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
+          <h2>
+            <Link to="/">TI Pool</Link>
+          </h2>
           <ThemeToggle />
           <Link to="/cards">Cards</Link>
           <Link to="/decks">Decks</Link>
           <Link to="/teams">Teams</Link>
+          <Link className="ml-auto" to="/login">Login / Sign Up</Link>
+        </div>
 
           {/* <details className="relative w-full sm:w-auto">
             <summary className="nav-link list-none cursor-pointer">
@@ -64,7 +65,6 @@ export default function Header() {
               </a>
             </div>
           </details> */}
-        </div>
       </nav>
     </header>
   )
