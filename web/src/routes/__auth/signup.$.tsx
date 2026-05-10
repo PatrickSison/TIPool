@@ -8,7 +8,12 @@ export const Route = createFileRoute('/__auth/signup/$')({
 function RouteComponent() {
   return(
     <div className="flex justify-center place-items-center">
-     <SignUp />
+     <SignUp
+      routing="path"
+      path="/signup"
+      signInUrl="/login"
+      forceRedirectUrl="/"
+      />
     </div>
   )
 }

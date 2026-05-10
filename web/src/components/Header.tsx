@@ -1,4 +1,5 @@
 import { Link } from '#/components/ui/link'
+import { Show, UserButton } from '@clerk/tanstack-react-start'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
@@ -13,7 +14,16 @@ export default function Header() {
           <Link to="/cards">Cards</Link> {/*This will get changed to Collection*/}
           <Link to="/pools">Pools</Link> {/*Ideally this will be hidden when users are not logged in*/}
           <Link to="/decks">Decks</Link> {/*Ideally this will be hidden when users are not logged in*/}
-          <Link className="ml-auto" to="/login">Login / Sign Up</Link> {/*This needs to have a login by default, button at the bottom for signup if not signed up*/}
+          
+          <Show when="signed-out">
+            <Link className="ml-auto" to="/login">Login / Sign Up</Link> {/*This needs to have a login by default, button at the bottom for signup if not signed up, no idea why this isn't doing that rn*/}
+          </Show>
+
+          <Show when="signed-in">
+            <div className="ml-auto">
+              <UserButton />
+            </div>
+          </Show> 
           {/*Need to add a card gallery button to view the whole card gallery*/}
         </div>
 
